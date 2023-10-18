@@ -1,12 +1,16 @@
 {
     "manifest_version": 3,
-    "name": "obsidian",
+    "name": "obcitian",
     "version": "1.0",
     "description": "Your extension description.",
     "background": {
       "service_worker": "background.js"
     },
-    "action": {},
+    "action": {
+        "default_popup": "obcitian.html",
+        "default_icon": "icons/obsidian512.png",
+        "default_width": 400 
+    },
     "permissions": ["activeTab", "storage"],
     "host_permissions": [
         "https://127.0.0.1:27124/*"
