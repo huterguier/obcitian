@@ -2694,7 +2694,7 @@ const BINParser = ( function () {
 				temp = "BibEntry";
 			}
 			//notoriously get rid of all non-ascii characters, using punycode if necessary, and restrict length
-			parsedData[21] = convertSpecialChars(temp,1).slice(0,50) + parsedData[13] + parsedData[14];
+			parsedData[21] = convertSpecialChars(temp,1).slice(0,50).toLowerCase() + parsedData[13] + parsedData[2].replace(/ .*/,'').toLowerCase();
 			
 			/*--------------*/
 			/*QUERY SUMMARY */
