@@ -13,7 +13,7 @@ var bibData = null;
 //link to array containing all the bibField data
 var bibFieldData = null;
 
-//link to json object storing display options, parseMode means 0 = Bibtex, 1 = RIS, 2 = Endnote, 3 = Arnold S., 4 = Barnold S.
+//link to json object storing display options, parseMode means 0 = Bibtex.
 var displayOptions = null;
 var generalOptions = null;
 var redirectionSchemes = null;

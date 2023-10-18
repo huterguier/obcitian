@@ -139,14 +139,14 @@ const BINPopup = ( function () {
 	
 	async function write(string) {
 		const url = "https://127.0.0.1:27124/vault/references/bibliography.md";
-		const token = ""
-	
+		const apiKey = await getKey()
+		console.log("Key: ", apiKey)
 		try {    
 			const response = fetch(url, {
 			method: 'POST',
 			body: string,
 			headers: {
-				'Authorization': 'Bearer ' + token,
+				'Authorization': 'Bearer ' + apiKey,
 				'Content-Type': 'text/markdown'
 			}
 			});
@@ -159,17 +159,17 @@ const BINPopup = ( function () {
 			throw error
 		}
 	}
+
 	
 	
 	async function read(file) {
 		const url = "https://127.0.0.1:27124/vault/" + file;
-		const token = "";
-		
+		const apiKey = await getKey()
 		try {
 		  const response = await fetch(url, {
 			method: 'GET',
 			headers: {
-			  'Authorization': 'Bearer ' + token,
+			  'Authorization': 'Bearer ' + apiKey,
 			}
 		  });
 	  
@@ -182,19 +182,77 @@ const BINPopup = ( function () {
 		  console.error('Fetch Error: ', error);
 		  throw error;
 		}
-	  }
-	  
-	  async function contains(string) {
+	}
+	
+	async function contains(string) {
 		try {
-		  const content = await read("references/bibliography.md");
-		  console.log("Content: ", content)
-		  console.log("String: ", string)
-		  return content.includes(string);
+			const content = await read("references/bibliography.md");
+		  	return content.includes(string);
 		} catch (error) {
-		  console.error('Contains Error:', error);
-		  throw error;
+			console.error('Contains Error:', error);
+		  	throw error;
 		}
+	}
+
+	async function hasKey() {
+		// check if api key in local storage on firefox
+		apiKey = await browser.storage.local.get('apiKey')
+		if (apiKey.apiKey) {
+			return true
+		}
+		return false
+	}
+
+	async function getKey() {
+		// get api key from local storage on firefox
+		apiKey = await browser.storage.local.get('apiKey')
+		if (apiKey.apiKey) {
+			return apiKey.apiKey
+		} else {
+			console.log("No API Key")
+			return null
+		}
+	}
+
+	async function setKey(key) {
+		await browser.storage.local.set({"apiKey": key})
+	}
+
+	async function addFormToDOM() {
+		if (await hasKey()) {
+			return
+		}
+		// Create form element
+		const form = document.createElement('form');
+	  
+		// Create text input
+		const input = document.createElement('input');
+		input.type = 'text';
+		input.name = 'textField';
+		input.placeholder = 'Enter text';
+	  
+		// Create submit button
+		const button = document.createElement('button');
+		button.type = 'submit';
+		button.textContent = 'Send';
+	  
+		// Append input and button to form
+		form.appendChild(input);
+		form.appendChild(button);
+	  
+		// Append form to body
+		document.body.appendChild(form);
+	  
+		// Add form submit event listener
+		form.addEventListener('submit', function(event) {
+			event.preventDefault();
+			console.log("PRESSED")
+			const text = input.value;
+			setKey(text)
+			form.remove()
+		});
 	  }
+	  addFormToDOM();
 
 	// return retreiveContent, handleMessage
 	return {
