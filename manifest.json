@@ -1,0 +1,36 @@
+{
+	"manifest_version": 3,
+	"name": "obcitian",
+	"version": "0.0.1",
+	"description": "obsidian citation",
+
+	"icons": {
+		"512": "icons/icon-512.png"
+	},
+  
+	"action": {
+		"browser_style": false,
+		"default_icon": {
+			"512": "icons/icon-512.png"
+		},
+		"default_title": "Bib it now! (DEFAULT SHORTCUT: ALT+C)",
+		"default_popup": "popup/obcitian.html"
+	},
+  
+	"background": {
+		"scripts": ["background/background_url.js","background/background_resources.js","background/parser/background_schema.js","background/parser/background_parse_bib.js","background/background_interaction.js","background/background_load.js"]
+	},
+	
+	"commands": {},
+	
+	"host_permissions": ["*://citation-needed.springer.com/*", "<all_urls>"],
+
+	"optional_permissions": ["clipboardWrite"],
+	
+	"permissions": [
+		"activeTab",
+		"storage",
+		"scripting",
+		"tabs"
+	]
+}
