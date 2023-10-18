@@ -18,78 +18,74 @@ body {
     font-family: Arial, sans-serif;
     background-color: var(--color-base-00);
     color: var(--color-base-100);
+    width: 500px;
+    margin: 0;
+    padding: 0;
 }
 
 #container {
-    width: 400px;
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid var(--color-base-35);
-    border-radius: 10px;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
     background-color: var(--color-base-10);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header {
     text-align: center;
     background-color: var(--color-base-05);
-    padding: 10px;
-    border-radius: 5px;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
 }
 
-h1 {
+h1, h2 {
     margin: 0;
-    font-size: 2em;
+    padding: 0.5rem 0;
     color: var(--accent);
 }
 
-#description {
-    margin: 20px 0;
+#description, #features {
+    margin: 1rem 0;
 }
 
 #features {
     background-color: var(--color-base-20);
-    padding: 10px;
+    padding: 0.5rem;
     border-radius: 5px;
 }
 
-#features h2 {
-    margin-top: 0;
-}
-
 #features ul {
-    list-style: none;
-    padding-left: 0;
+    list-style-type: disc;
+    margin-left: 20px;
 }
 
-#features li {
-    padding: 5px;
-    border-bottom: 1px solid var(--color-base-40);
-}
-
-#features li:last-child {
-    border-bottom: none;
+#action-section {
+    text-align: center;
+    margin: 1rem 0;
 }
 
 #collectBtn {
     background-color: var(--accent);
-    color: white;
-    padding: 10px 20px;
+    color: var(--color-base-00);
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
+#textAreaDiv {
+    border: 1px solid var(--color-base-35);
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
 #textToCopy {
-	position: absolute;
-	top: 0.02cm;
-	left: 0.5cm;
-	width: 17cm;
-	right: 0.5cm;
-	height: 7.1cm;
-	font-size: 0.4cm;
-	font-family: Courier New;
-	overflow-y: scroll;
-	resize: none;
-	background: white;
-	border: solid 1px black;
+    font-family: 'Courier New', monospace;
+    width: 100%;
+    height: 7rem;
+    font-size: 14px;
+    padding: 0.5rem;
+    border: none;
+    resize: none;
 }

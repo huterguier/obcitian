@@ -138,8 +138,8 @@ const BINPopup = ( function () {
 	}
 	
 	async function write(string) {
-		const url = "https://127.0.0.1:27124/vault/references/test.md";
-		const token = "4a3ecc0b8edff93fd606a79ae9cbaf3dfc866cb3dac98fa7e344233a0dfcd729"
+		const url = "https://127.0.0.1:27124/vault/references/bibliography.md";
+		const token = ""
 	
 		try {    
 			const response = fetch(url, {
@@ -163,7 +163,7 @@ const BINPopup = ( function () {
 	
 	async function read(file) {
 		const url = "https://127.0.0.1:27124/vault/" + file;
-		const token = "4a3ecc0b8edff93fd606a79ae9cbaf3dfc866cb3dac98fa7e344233a0dfcd729";
+		const token = "";
 		
 		try {
 		  const response = await fetch(url, {
@@ -186,7 +186,7 @@ const BINPopup = ( function () {
 	  
 	  async function contains(string) {
 		try {
-		  const content = await read("references/test.md");
+		  const content = await read("references/bibliography.md");
 		  console.log("Content: ", content)
 		  console.log("String: ", string)
 		  return content.includes(string);

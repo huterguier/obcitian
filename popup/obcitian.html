@@ -2,35 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>OBCitian</title>
+    <title>obcitian</title>
     <link rel="stylesheet" href="obcitian.css">
 </head>
 <body>
     <div id="container">
-        <header>
-            <h1>OBCitian</h1>
-        </header>
-        <section id="description">
-            <p>OBCitian is a browser extension designed to streamline the process of collecting scientific references while browsing the web.</p>
-        </section>
-        <section id="features">
-            <h2>Features</h2>
-            <ul>
-                <li>Automatic Reference Collection</li>
-                <li>BibTeX Format</li>
-                <li>Duplicates Management</li>
-                <li>Seamless Integration with Obsidian Citations</li>
-            </ul>
-        </section>
-        <button id="collectBtn">Collect References</button>
-        <p>
-			<div id="textAreaDiv">
-				<textarea id="textToCopy" draggable="false" readonly="true">Loading page...</textarea>
-			</div>
-		</p>
+        <div id="action-section">
+            <button id="collectBtn">Collect References</button>
+        </div>
+        <div id="textAreaDiv">
+            <textarea id="textToCopy" draggable="false" readonly="true">Loading page...</textarea>
+        </div>
     </div>
     <script type="text/javascript" src="parser/popup_parse_Bibtex.js"></script>
-	<script type="text/javascript" src="popup_interaction.js"></script>
-	<script type="text/javascript" src="popup_load.js"></script>
+    <script type="text/javascript" src="popup_interaction.js"></script>
+    <script type="text/javascript" src="popup_load.js"></script>
 </body>
 </html>
