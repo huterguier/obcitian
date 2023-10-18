@@ -1,0 +1,16 @@
+# Ignore build artifacts
+/build/
+/dist/
+
+# Ignore node_modules directory
+/node_modules/
+
+# Ignore Chrome extension files
+*.crx
+*.pem
+
+# Ignore Firefox extension files
+*.xpi
+*.zip
+*.rdf
+*.pem
