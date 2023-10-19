@@ -100,8 +100,7 @@ const BINPopup = ( function () {
 		let abbrevs = false; 
 		
 		if (bibData != null && typeof(bibData) == 'object' && bibFieldData != null) {
-						
-			
+
 			//parse bib data
 			let contentString = "";
 			contentString = parser.parse(abbrevs);
@@ -123,7 +122,6 @@ const BINPopup = ( function () {
                         write(contentString)
                     }
                 })
-
             }
 
 			
@@ -136,6 +134,7 @@ const BINPopup = ( function () {
 			markTextArea(textArea);
 		}
 	}
+
 	
 	async function write(string) {
 		const url = "https://127.0.0.1:27124/vault/references/bibliography.md";
@@ -187,6 +186,8 @@ const BINPopup = ( function () {
 	async function contains(string) {
 		try {
 			const content = await read("references/bibliography.md");
+			var sample = BINParser.toJSON(content)[0]
+			console.log(sample);
 		  	return content.includes(string);
 		} catch (error) {
 			console.error('Contains Error:', error);
