@@ -14,6 +14,10 @@
     --color-base-100: #222222;
 }
 
+* {
+    border: 1px solid red;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: var(--color-base-00);
@@ -30,6 +34,10 @@ body {
     background-color: var(--color-base-10);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 header {
@@ -75,9 +83,12 @@ h1, h2 {
 }
 
 #textAreaDiv {
-    border: 1px solid var(--color-base-35);
-    border-radius: 4px;
     margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #textToCopy {
@@ -86,6 +97,39 @@ h1, h2 {
     height: 7rem;
     font-size: 14px;
     padding: 0.5rem;
-    border: none;
+    border: 2px solid var(--color-base-35);
+    border-radius: 4px;
     resize: none;
+}
+
+/* Center Form and its elements */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+
+input[type="password"] {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--color-base-35);
+    border-radius: 4px;
+    width: 100%;
+    align-self: center;
+
+}
+
+button[type="submit"] {
+    background-color: var(--accent);
+    color: var(--color-base-00);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center;
+
 }
