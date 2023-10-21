@@ -118,7 +118,6 @@ const BINPopup = ( function () {
                 contains(_doi)
                 .then(result => {
                     if (!result) {
-                        console.log(result)
                         write(contentString)
                     }
                 })
@@ -139,7 +138,6 @@ const BINPopup = ( function () {
 	async function write(string) {
 		const url = "https://127.0.0.1:27124/vault/references/bibliography.md";
 		const apiKey = await getKey()
-		console.log("Key: ", apiKey)
 		try {    
 			const response = fetch(url, {
 			method: 'POST',
@@ -187,7 +185,6 @@ const BINPopup = ( function () {
 		try {
 			const content = await read("references/bibliography.md");
 			var sample = BINParser.toJSON(content)[0]
-			console.log(sample);
 		  	return content.includes(string);
 		} catch (error) {
 			console.error('Contains Error:', error);
@@ -248,14 +245,17 @@ const BINPopup = ( function () {
 		if (await hasKey()) {
 			return
 		}
+
+		container = document.getElementById("container")
+
 		// Create form element
 		const form = document.createElement('form');
 	  
 		// Create text input
 		const input = document.createElement('input');
-		input.type = 'text';
+		input.type = 'password';
 		input.name = 'textField';
-		input.placeholder = 'Enter text';
+		input.placeholder = 'Enter API Key';
 	  
 		// Create submit button
 		const button = document.createElement('button');
@@ -267,12 +267,11 @@ const BINPopup = ( function () {
 		form.appendChild(button);
 	  
 		// Append form to body
-		document.body.appendChild(form);
+		container.appendChild(form);
 	  
 		// Add form submit event listener
 		form.addEventListener('submit', async function(event) {
 			event.preventDefault();
-			console.log("PRESSED")
 			const text = input.value;
 			form.remove()
 			document.getElementById("loading").style.display = "block";
