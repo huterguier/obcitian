@@ -95,10 +95,10 @@ const BINPopup = ( function () {
 	}
 	
 	//renew popup content
-	function rebuildPopup(buildFormatSelector = false) {
+	async function rebuildPopup(buildFormatSelector = false) {
 		//parse mode specific abbreviation setting, needed later
 		let abbrevs = false; 
-		
+
 		if (bibData != null && typeof(bibData) == 'object' && bibFieldData != null) {
 
 			//parse bib data
@@ -162,7 +162,7 @@ const BINPopup = ( function () {
 	
 	
 	async function read(file) {
-		const url = "https://127.0.0.1:27124/vault/" + file;
+		const url = "https://127.0.0.1:27124/vault/" + file;F
 		const apiKey = await getKey()
 		try {
 		  const response = await fetch(url, {
@@ -219,6 +219,31 @@ const BINPopup = ( function () {
 		await browser.storage.local.set({"apiKey": key})
 	}
 
+	async function verifyKey() {
+		const url = "https://127.0.0.1:27124/";
+		const apiKey = await getKey()
+		try {
+		  const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+			  'Authorization': 'Bearer ' + apiKey,
+			}
+		  });
+	  
+		  if (!response.ok) {
+			return false
+		  }
+		  responseText = await response.text()
+		  responseJSON = JSON.parse(responseText)
+		  console.log(responseJSON)
+		  console.log(responseJSON["authenticated"])
+		  return responseJSON["authenticated"]
+		} catch (error) {
+		  console.error('Fetch Error: ', error);
+		  return false
+		}
+	}
+
 	async function addFormToDOM() {
 		if (await hasKey()) {
 			return
@@ -245,15 +270,38 @@ const BINPopup = ( function () {
 		document.body.appendChild(form);
 	  
 		// Add form submit event listener
-		form.addEventListener('submit', function(event) {
+		form.addEventListener('submit', async function(event) {
 			event.preventDefault();
 			console.log("PRESSED")
 			const text = input.value;
-			setKey(text)
 			form.remove()
+			document.getElementById("loading").style.display = "block";
+			setKey(text)
+			keyValid = verifyKey()
+			console.log(keyValid)
+			console.log("KEY VALID")
+			if (await verifyKey()) {
+				document.getElementById("token accepted").style.display = "block";
+			}
+			else{
+				document.getElementById("token rejected").style.display = "block";
+			}
+			document.getElementById("loading").style.display = "none";
 		});
-	  }
-	  addFormToDOM();
+	}
+
+
+	function renderPage() {
+		if (bibData != null && typeof(bibData) == 'object' && bibFieldData != null) {
+			//show popup
+			document.getElementById("container").style.display = "block";
+			//hide loading message
+			document.getElementById("loading").style.display = "none";
+		}
+	}
+
+	addFormToDOM();
+	document.getElementById("container").style.display = "none";
 
 	// return retreiveContent, handleMessage
 	return {
