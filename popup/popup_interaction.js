@@ -95,15 +95,24 @@ const BINPopup = ( function () {
 	}
 	
 	//renew popup content
-	async function rebuildPopup(buildFormatSelector = false) {
+	function rebuildPopup(buildFormatSelector = false) {
 		//parse mode specific abbreviation setting, needed later
 		let abbrevs = false; 
+
+		if (apiKey == null){
+			document.getElementById("tokenRejected").style.display = "block";
+		}
 
 		if (bibData != null && typeof(bibData) == 'object' && bibFieldData != null) {
 
 			//parse bib data
 			let contentString = "";
 			contentString = parser.parse(abbrevs);
+			const textArea = document.getElementById("referenceBibtex");
+			textArea.value = contentString;
+			textArea.scrollTop = 0;
+			console.log(contentString)
+
 
 			if (contentString != null) {
                 const regex = /doi\s*=\s*{([^}]+)}/;
@@ -122,15 +131,6 @@ const BINPopup = ( function () {
                     }
                 })
             }
-
-			
-			//fill textArea depending on mode, and scroll to top
-			const textArea = document.getElementById("textToCopy");
-			textArea.value = contentString;
-			textArea.scrollTop = 0;
-			
-			//select text area if option enabled
-			markTextArea(textArea);
 		}
 	}
 
@@ -160,7 +160,7 @@ const BINPopup = ( function () {
 	
 	
 	async function read(file) {
-		const url = "https://127.0.0.1:27124/vault/" + file;F
+		const url = "https://127.0.0.1:27124/vault/" + file;
 		const apiKey = await getKey()
 		try {
 		  const response = await fetch(url, {
@@ -216,14 +216,13 @@ const BINPopup = ( function () {
 		await browser.storage.local.set({"apiKey": key})
 	}
 
-	async function verifyKey() {
+	async function verifyKey(key) {
 		const url = "https://127.0.0.1:27124/";
-		const apiKey = await getKey()
 		try {
 		  const response = await fetch(url, {
 			method: 'GET',
 			headers: {
-			  'Authorization': 'Bearer ' + apiKey,
+			  'Authorization': 'Bearer ' + key,
 			}
 		  });
 	  
@@ -241,70 +240,20 @@ const BINPopup = ( function () {
 		}
 	}
 
-	async function addFormToDOM() {
-		if (await hasKey()) {
-			return
+	async function registerKey(key) {
+		if (await verifyKey(key)) {
+			setKey(key)
+			apiKey = key;
+			browser.local.storage.set({"apiKey": key})
+			return true
 		}
-
-		container = document.getElementById("container")
-
-		// Create form element
-		const form = document.createElement('form');
-	  
-		// Create text input
-		const input = document.createElement('input');
-		input.type = 'password';
-		input.name = 'textField';
-		input.placeholder = 'Enter API Key';
-	  
-		// Create submit button
-		const button = document.createElement('button');
-		button.type = 'submit';
-		button.textContent = 'Send';
-	  
-		// Append input and button to form
-		form.appendChild(input);
-		form.appendChild(button);
-	  
-		// Append form to body
-		container.appendChild(form);
-	  
-		// Add form submit event listener
-		form.addEventListener('submit', async function(event) {
-			event.preventDefault();
-			const text = input.value;
-			form.remove()
-			document.getElementById("loading").style.display = "block";
-			setKey(text)
-			keyValid = verifyKey()
-			console.log(keyValid)
-			console.log("KEY VALID")
-			if (await verifyKey()) {
-				document.getElementById("token accepted").style.display = "block";
-			}
-			else{
-				document.getElementById("token rejected").style.display = "block";
-			}
-			document.getElementById("loading").style.display = "none";
-		});
+		return false
 	}
-
-
-	function renderPage() {
-		if (bibData != null && typeof(bibData) == 'object' && bibFieldData != null) {
-			//show popup
-			document.getElementById("container").style.display = "block";
-			//hide loading message
-			document.getElementById("loading").style.display = "none";
-		}
-	}
-
-	addFormToDOM();
-	document.getElementById("container").style.display = "none";
 
 	// return retreiveContent, handleMessage
 	return {
 		retreiveContent : retreiveContent,
-		handleMessage : handleMessage
+		handleMessage : handleMessage,
+		registerKey : registerKey,
 	}; //end return
 }());

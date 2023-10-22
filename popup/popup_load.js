@@ -17,10 +17,51 @@ var bibFieldData = null;
 var displayOptions = null;
 var generalOptions = null;
 var redirectionSchemes = null;
+var apiKey = null;
+var views = null;
+
 
 /*----------------*/
 /*Initialize popup*/
 /*----------------*/
 
+views = {
+    reference: document.getElementById("referenceView"),
+    token: document.getElementById("tokenView"),
+    settings: document.getElementById("settingsView"),
+}
+browser.storage.local.get().then((items) => {
+    console.log(items)
+    if (items.apiKey) {
+        buildPopup(items.apiKey);
+    } else {
+        buildKeyInput(items.apiKey);
+    }
+});
+
+function buildKeyInput(apiKey) {
+    views.token.style.display = "block";
+
+    button = document.getElementById("tokenButton");
+    button.addEventListener("click", async function() {
+        inputKey = document.getElementById("tokenInputField").value;
+        views.token.style.display = "none";
+        if (await BINPopup.registerKey(inputKey)){
+            console.log("registered key")
+            views.reference.style.display = "block";
+            BINPopup.retreiveContent({name: "first" , message: ""});
+        }
+        else {
+            console.log("key rejected")
+            views.token.style.display = "block";
+        }
+    });
+}
+
+function buildPopup() {
+    views.reference.style.display = "block";
+    BINPopup.retreiveContent({name: "first" , message: ""});
+}
+
+
 //initialize and get data, message only relevant for Safari
-BINPopup.retreiveContent({name: "first" , message: ""});

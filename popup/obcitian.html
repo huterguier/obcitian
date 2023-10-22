@@ -6,36 +6,45 @@
     <link rel="stylesheet" href="obcitian.css">
 </head>
 <body>
-    <div id="container">
-        <div id="action-section">
-            <button id="collectBtn">Collect References</button>
-        </div>
-        <div id="textAreaDiv">
-            <textarea id="textToCopy" draggable="false" readonly="true">Loading page...</textarea>
-        </div>
-        
-    </div>
-
-    <div id="reference">
-        <div id="reference-text">
+    <div id="referenceView" style="display:none">
+        <div id="referenceText">
             <p>Reference</p>
-            <div id="reference-bibtex">
-                <textarea id="bibtex" draggable="false" readonly="true">Loading page...</textarea>
+            <div>
+                <textarea id="referenceBibtex" draggable="false" readonly="true">Loading page...</textarea>
+                <button type="submit">Collect References</button>
             </div>
         </div>
     </div>
+
+    <div id="tokenView" style="display:none">
+        <p>Token</p>
+        <div id="tokenBox">
+            <input id="tokenInputField" type="password" placeholder="Enter token here">
+            <button id="tokenButton" type="submit">Submit</button>
+        </div>
     </div>
+
+    <div id="settingsView" style="display:none">
+        <p>Settings</p>
+        <div id="settingsBox">
+            
+        </div>
+        <button id="settingsButton">Submit</button>
+    </div>
+
     <div id="loading" style="display:none">
         <div id="loading-text">
             <p>Loading...</p>
         </div>
     </div>
-    <div id="token accepted" style="display:none">
+
+    <div id="tokenAccepted" style="display:none">
         <div id="token-text">
             <p>Token accepted</p>
         </div>
     </div>
-    <div id="token rejected" style="display:none">
+
+    <div id="tokenRejected" style="display:none">
         <div id="token-text">
             <p>Token rejected</p>
         </div>

@@ -338,7 +338,7 @@ const BINInteraction = ( function () {
 	// function to handle errors
 	function handleError(error) {
 		//log error
-		console.log(`Error: ${error}`);
+		console.error(`Error: ${error}`);
 	}
 
 	// function to send messages
