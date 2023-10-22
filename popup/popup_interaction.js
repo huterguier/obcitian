@@ -55,13 +55,20 @@ const BINPopup = ( function () {
 				sendResponse( { received: true } );
 				break;
 			case "background_notextractable_popup":
+				for (let view in views) {
+					views[view].style.display = "none";
+				}
+				views.noReference.style.display = "block";
 				console.log(request.msgType)
+				sendResponse( { received: true } );
 				break;
 			case "background_clicking_citation_button_popup":
 				console.log(request.msgType)
+				sendResponse( { received: true } );
 				break;
             case "background_load_abstract_page_popup":
                 console.log(request.msgType)
+				sendResponse( { received: true } );
 				break;
 		}
 	}
@@ -99,10 +106,6 @@ const BINPopup = ( function () {
 		//parse mode specific abbreviation setting, needed later
 		let abbrevs = false; 
 
-		if (apiKey == null){
-			document.getElementById("tokenRejected").style.display = "block";
-		}
-
 		if (bibData != null && typeof(bibData) == 'object' && bibFieldData != null) {
 
 			//parse bib data
@@ -115,16 +118,7 @@ const BINPopup = ( function () {
 
 
 			if (contentString != null) {
-                const regex = /doi\s*=\s*{([^}]+)}/;
-                const match = contentString.match(regex);
-                let _doi = null
-
-                if (match) {
-                _doi = match[1];
-                } else {
-                console.log('DOI not found');
-                }
-                contains(_doi)
+                exists(contentString)
                 .then(result => {
                     if (!result) {
                         write(contentString)
@@ -136,17 +130,18 @@ const BINPopup = ( function () {
 
 	
 	async function write(string) {
-		const url = "https://127.0.0.1:27124/vault/references/bibliography.md";
-		const apiKey = await getKey()
 		try {    
-			const response = fetch(url, {
-			method: 'POST',
-			body: string,
-			headers: {
-				'Authorization': 'Bearer ' + apiKey,
-				'Content-Type': 'text/markdown'
-			}
-			});
+			const response = fetch(
+				url + "/vault/" + bibtexPath, 
+				{
+					method: 'POST',
+					body: string,
+					headers: {
+						'Authorization': 'Bearer ' + apiKey,
+						'Content-Type': 'text/markdown'
+					}
+				}
+			);
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
 			} 
@@ -156,20 +151,19 @@ const BINPopup = ( function () {
 			throw error
 		}
 	}
-
 	
 	
 	async function read(file) {
-		const url = "https://127.0.0.1:27124/vault/" + file;
-		const apiKey = await getKey()
 		try {
-		  const response = await fetch(url, {
-			method: 'GET',
-			headers: {
-			  'Authorization': 'Bearer ' + apiKey,
-			}
-		  });
-	  
+		  const response = await fetch(
+			url + "/vault/" + file,
+			{
+				method: 'GET',
+				headers: {
+				'Authorization': 'Bearer ' + apiKey,
+				}
+		  	}
+		  );
 		  if (!response.ok) {
 			throw new Error('Network response was not ok');
 		  }
@@ -181,36 +175,44 @@ const BINPopup = ( function () {
 		}
 	}
 	
-	async function contains(string) {
+
+	function equals(ref1, ref2) {
+		if (ref1["citationKey"] != null && ref2["citationKey"] != null) {
+			if (ref1["citationKey"] == ref2["citationKey"])
+				return true
+		}
+		if (ref1["doi"] != null && ref2["doi"] != null) {
+			if (ref1["doi"] == ref2["doi"])
+				return true
+		}
+		if (ref1["title"] != null && ref2["title"] != null) {
+			if (ref1["title"] == ref2["title"])
+				return true
+		}
+		return false
+	}
+
+
+	async function exists(string) {
 		try {
-			const content = await read("references/bibliography.md");
-			var sample = BINParser.toJSON(content)[0]
-		  	return content.includes(string);
+			const content = await read(bibtexPath);
+			var references = BINParser.toJSON(content);
+			reference = BINParser.toJSON(string)[0];
+
+			for (const ref of references) {
+				if (equals(ref, reference)) {
+					document.getElementById("referenceExists").style.display = "block";
+					return true
+				}
+			}
+
+		  	return false
 		} catch (error) {
 			console.error('Contains Error:', error);
 		  	throw error;
 		}
 	}
 
-	async function hasKey() {
-		// check if api key in local storage on firefox
-		apiKey = await browser.storage.local.get('apiKey')
-		if (apiKey.apiKey) {
-			return true
-		}
-		return false
-	}
-
-	async function getKey() {
-		// get api key from local storage on firefox
-		apiKey = await browser.storage.local.get('apiKey')
-		if (apiKey.apiKey) {
-			return apiKey.apiKey
-		} else {
-			console.log("No API Key")
-			return null
-		}
-	}
 
 	async function setKey(key) {
 		await browser.storage.local.set({"apiKey": key})

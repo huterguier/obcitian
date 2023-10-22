@@ -15,7 +15,7 @@
 }
 
 * {
-    border: 1px solid red;
+    border: 1px solid white;
 }
 
 body {
@@ -91,7 +91,7 @@ h1, h2 {
     justify-content: center;
 }
 
-#textToCopy {
+#referenceBibtex {
     font-family: 'Courier New', monospace;
     width: 100%;
     height: 7rem;

@@ -19,6 +19,9 @@ var generalOptions = null;
 var redirectionSchemes = null;
 var apiKey = null;
 var views = null;
+var config = null;
+const url = "https://127.0.0.1:27124";
+const bibtexPath = "references/bibliography.md";
 
 
 /*----------------*/
@@ -27,17 +30,26 @@ var views = null;
 
 views = {
     reference: document.getElementById("referenceView"),
+    noReference: document.getElementById("noReferenceView"),
     token: document.getElementById("tokenView"),
     settings: document.getElementById("settingsView"),
 }
-browser.storage.local.get().then((items) => {
+
+browser.storage.local.get("apiKey").then((items) => {
     console.log(items)
     if (items.apiKey) {
+        apiKey = items.apiKey;
         buildPopup(items.apiKey);
     } else {
         buildKeyInput(items.apiKey);
     }
 });
+
+function clearViews() {
+    for (let view in views) {
+        views[view].style.display = "none";
+    }
+}
 
 function buildKeyInput(apiKey) {
     views.token.style.display = "block";
@@ -47,7 +59,7 @@ function buildKeyInput(apiKey) {
         inputKey = document.getElementById("tokenInputField").value;
         views.token.style.display = "none";
         if (await BINPopup.registerKey(inputKey)){
-            console.log("registered key")
+            clearViews();
             views.reference.style.display = "block";
             BINPopup.retreiveContent({name: "first" , message: ""});
         }
