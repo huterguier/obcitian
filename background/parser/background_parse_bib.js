@@ -2706,7 +2706,7 @@ const BINParser = ( function () {
             /*--------------------*/
             
             //set if editor and translator are the same, TODO currently a dummy
-            parsedData[79] = "";
+            parsedData[79] = metaData["citation_pdf"]
             
 			//finish
 			return;

@@ -212,6 +212,9 @@ const BINBibtex = ( function () {
 				}
 			}
 		}
+
+		//pdf
+		returnString += "," + indentBy + "pdf" + " = {" + bibFieldData[79] + "}";
 		
 		//avoid doi for open access archive/eprint if wanted
 		if (length != "") {
