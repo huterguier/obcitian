@@ -121,6 +121,7 @@ const BINPopup = ( function () {
                 exists(contentString)
                 .then(result => {
                     if (!result) {
+						contentString = "```bibtex\n" + contentString + "\n```"
                         write(contentString)
                     }
                 })
