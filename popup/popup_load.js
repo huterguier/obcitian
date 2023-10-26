@@ -28,6 +28,9 @@ const bibtexPath = "references/bibliography.md";
 /*Initialize popup*/
 /*----------------*/
 
+document.documentElement.style.setProperty("--browser-width", "500px");
+document.documentElement.style.setProperty("--browser-height", "500px");
+
 views = {
     reference: document.getElementById("referenceView"),
     noReference: document.getElementById("noReferenceView"),
