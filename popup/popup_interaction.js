@@ -117,6 +117,9 @@ const BINPopup = ( function () {
 			console.log(contentString)
 
 
+
+			addProperties(BINParser.toJSON(contentString)[0])
+
 			if (contentString != null) {
                 exists(contentString)
                 .then(result => {
@@ -250,6 +253,14 @@ const BINPopup = ( function () {
 			return true
 		}
 		return false
+	}
+
+	function addProperties(object) {
+		console.log(object)
+	}
+
+	function addProperty(root, key, value, type) {
+
 	}
 
 	// return retreiveContent, handleMessage
