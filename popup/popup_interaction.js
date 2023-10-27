@@ -139,9 +139,6 @@ const BINPopup = ( function () {
 					}
 				}
 			);
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-			} 
 			return (await response).text();
 		} catch (error) {
 			console.error("Fetch error: ", error);
@@ -161,10 +158,6 @@ const BINPopup = ( function () {
 				}
 		  	}
 		  );
-		  if (!response.ok) {
-			throw new Error('Network response was not ok');
-		  }
-	  
 		  return await response.text();
 		} catch (error) {
 		  console.error('Fetch Error: ', error);
