@@ -1867,7 +1867,7 @@ iframe {
   unicode-range: U+0;
 }
 body {
-  --font-default: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  --font-default: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
   --font-monospace-default: Menlo, SFMono-Regular, Consolas, "Roboto Mono", 'Source Code Pro', monospace;
   --font-interface-override: '??';
   --font-interface-theme: '??';
@@ -5140,7 +5140,7 @@ input.document-replace-input.mod-no-match {
   color: var(--text-muted);
 }
 .document-search-close-button:before {
-  font-family: Inter, sans-serif;
+  font-family: Courier New, sans-serif;
   content: "\d7";
   font-weight: 300;
 }
@@ -6014,7 +6014,7 @@ body:not(.native-scrollbars) .modal-close-button {
   }
 }
 .modal-close-button:before {
-  font-family: Inter, sans-serif;
+  font-family: Courier New, sans-serif;
   content: '\D7';
   font-weight: 300;
 }
