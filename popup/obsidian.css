@@ -1444,7 +1444,7 @@ body {
   /* Radiuses */
   --radius-s: 4px;
   --radius-m: 8px;
-  --radius-l: 8px;
+  --radius-l: 12px;
   --radius-xl: 16px;
   /* Ribbon */
   --ribbon-background: var(--background-secondary);
@@ -1765,10 +1765,6 @@ body {
   --pdf-shadow: 0 0 0 1px var(--background-modifier-border);
   --pdf-thumbnail-shadow: 0 0 0 1px var(--background-modifier-border);
 }
-body {
-  background: #FFF;
-  color: #333;
-  }
 iframe {
   color-scheme: normal;
 }
