@@ -5,11 +5,11 @@
     <title>obcitian</title>
     <link rel="stylesheet" href="obsidian.css">
 </head>
-<body class="theme-dark">
-    <div id="referenceView" style="display:none; height:400px" class="modal">
+<body class="theme-dark" style="background-image: none !important;">
+    <div id="referenceView" style="display:block; height:400px;" class="modal">
         <div class="modal-close-button"></div>
         <div class="metadata-container"> 
-            <div class="metadata-properties-heading" tabindex="0"><div id="referenceTitle" style="color: var(--color-purple)" class="metadata-properties-title">BibKey...</div></div>
+            <div class="metadata-properties-heading" tabindex="0"><div id="referenceTitle" style="color: var(--color-accent)" class="metadata-properties-title">BibKey...</div></div>
             <div class="metadata-content">
                 <div id="referenceProperties" class="metadata-properties">
                     <div class="metadata-property" tabindex="0" data-property-key="date" data-property-type="date">
@@ -28,28 +28,22 @@
         <div>
             <p id="referenceExists" style="display:none; color:red">Reference already exists!</p>
             <button type="submit", class="mod-cta">Collect References</button>
-            <button id="updateButton", style="display:none" class="mod-cta">Update Reference</button>
+            <button id="updateButton", style="display:none" class="btn-cta">Update Reference</button>
         </div>
     </div>
 
-    <div id="noReferenceView" style="display:none">
+    <div id="noReferenceView" style="display:none; background-image: none;">
         <div id="noReferenceText">
             <p>No reference found</p>
         </div>
     </div>
 
-    <div id="tokenView" style="display:none;" class="modal">
+    <div id="tokenView" style="display:none; width:fit-content" class="modal">
         <div class="modal-close-button"></div>
-        <div class="prompt-input">
-            <div class="prompt-input-container">
-                <input class="prompt-input" enterkeyhint="done" type="text" spellcheck="false">
-                <div class="prompt-input-cta"></div>
-            </div>
-        </div>
-        <p>Token</p>
+        <div class="metadata-properties-heading" tabindex="0"><div id="referenceTitle" class="metadata-properties-title">Token</div></div>
         <div id="tokenBox">
             <input id="tokenInputField" type="password" placeholder="Enter token here">
-            <button id="tokenButton" class="mod-cta" type="submit">Submit</button>
+            <button id="tokenButton" class="btn-cta" type="submit">Submit</button>
         </div>
     </div>
 
