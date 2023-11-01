@@ -11,13 +11,13 @@
 	  
 
 	"icons": {
-		"512": "icons/icon-512.png"
+		"512": "../src/assets/icon-512.png"
 	},
   
 	"action": {
 		"browser_style": false,
 		"default_icon": {
-			"512": "icons/icon-512.png"
+			"512": "../src/assets/icon-512.png"
 		},
 		"default_title": "Bib it now! (DEFAULT SHORTCUT: ALT+C)",
 		"default_popup": "index.html"

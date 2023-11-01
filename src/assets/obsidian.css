@@ -1046,7 +1046,7 @@
 
 /* Obsidian theme variables */
 /* ------------------------ */
-body {
+.obsidian {
   /* Animations */
   --anim-duration-none: 0;
   --anim-duration-superfast: 70ms;
@@ -5867,6 +5867,7 @@ select.mod-hidden {
   flex-direction: column;
   overflow: auto;
 }
+
 .modal.mod-sidebar-layout {
   padding: 0;
   width: var(--modal-width);
