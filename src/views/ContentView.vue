@@ -1,12 +1,12 @@
 <template>
-    <Content />
+    <Properties />
 </template>
 
 <script>
-import Content from '../components/Content.vue';
+import Properties from '../components/Properties.vue';
 export default {
     components: {
-      Content,
+      Properties,
     },
 }
 </script>
