@@ -1,9 +1,11 @@
 <script>
 import Property from '../components/Property.vue';
+import Icon from '../components/Icon.vue';
 
 export default {
   components: {
     Property,
+    Icon,
   },
   data() {
     return {
@@ -25,6 +27,7 @@ export default {
         <div class="metadata-properties-heading" tabindex="0">
             <div id="referenceTitle" style="color: var(--color-accent)" class="metadata-properties-title">
                 <p>BibKey...</p>
+                <Icon name="accessibility" />
             </div>
         </div>
         <div class="metadata-content">
