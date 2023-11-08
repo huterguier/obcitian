@@ -65,6 +65,7 @@ var BINPreformatter = ( function () {
 		
 		//preformat url
 		metaData["citation_url"] = metaData["citation_url"].replace("/pdf/","/abs/");
+		metaData["citation_pdf"] = metaData["citation_url"].replace("/abs/","/pdf/") + ".pdf";
 	}
 	
 	// expose preformatting function and raw preformatting function

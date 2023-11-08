@@ -199,7 +199,7 @@ const BINBibtex = ( function () {
 				}
 			}
 		}
-		
+		/*
 		//dol and/or url.
 		fieldValue = bibFieldData[15];
 		length = (options.doi && (!options.hideDoiForPreprint || (options.hideDoiForPreprint && bibFieldData[20] == ""))) ? fieldValue : ""; //save doi in length if eprint not available
@@ -212,6 +212,9 @@ const BINBibtex = ( function () {
 				}
 			}
 		}
+		*/
+		
+		returnString += "," + indentBy + "url" + " = {" + bibFieldData[79] + "}";
 		
 		//avoid doi for open access archive/eprint if wanted
 		if (length != "") {
