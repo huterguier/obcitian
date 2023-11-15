@@ -291,7 +291,7 @@ const BINParser = ( function () {
     }
 
     function toBibtex(json) {
-        if (compact === undefined) compact = true;
+        compact = false;
         var out = '';
         
         var entrysep = ',';

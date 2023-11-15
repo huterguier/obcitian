@@ -447,6 +447,8 @@ const BINInteraction = ( function () {
 	// function to load site adjusters
 	function loadSiteAdjusters(prefselector) {
         
+		console.log("loadSiteAdjusters")
+
 		//get current working tab
 		const tabId = parseInt(parsedData["tab_id"].slice(4));
         
@@ -463,6 +465,7 @@ const BINInteraction = ( function () {
 		//return immediately if no url specified
 		if (curURL == undefined || curURL == null || curURL == "") {
 			onNotExtractable(null);
+			console.log("no url specified")
 			return;
 		}
 		
@@ -553,6 +556,7 @@ const BINInteraction = ( function () {
 				requestDataExtraction(tabId, prefselectorMsg); 
 			};
 		}
+		console.log("exit loadSiteAdjusters")
 	}
 	
 	// take working tab and prepare data extraction or send parsed data to popup if cached! Different logic on Safari

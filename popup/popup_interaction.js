@@ -118,7 +118,7 @@ const BINPopup = ( function () {
                 exists(contentString)
                 .then(result => {
                     if (!result) {
-						contentString = "```bibtex\n" + contentString + "\n```"
+						contentString = contentString
                         write(contentString)
                     }
                 })
@@ -133,6 +133,27 @@ const BINPopup = ( function () {
 				url + "/vault/" + bibtexPath, 
 				{
 					method: 'POST',
+					body: string,
+					headers: {
+						'Authorization': 'Bearer ' + apiKey,
+						'Content-Type': 'text/markdown'
+					}
+				}
+			);
+			return (await response).text();
+		} catch (error) {
+			console.error("Fetch error: ", error);
+			throw error
+		}
+	}
+
+
+	async function overwrite(string) {
+		try {    
+			const response = fetch(
+				url + "/vault/" + bibtexPath, 
+				{
+					method: 'PUT',
 					body: string,
 					headers: {
 						'Authorization': 'Bearer ' + apiKey,
@@ -193,6 +214,13 @@ const BINPopup = ( function () {
 			for (const ref of references) {
 				if (equals(ref, reference)) {
 					document.getElementById("referenceExists").style.display = "block";
+					removeButton = document.getElementById("referenceRemove")
+					removeButton.style.display = "block"
+					removeButton.addEventListener("click", function() {
+						const bibKey = reference["citationKey"]
+						remove(bibKey);
+					});
+
 					return true
 				}
 			}
@@ -202,6 +230,42 @@ const BINPopup = ( function () {
 			console.error('Contains Error:', error);
 		  	throw error;
 		}
+	}
+
+	function switchView(view) {
+		for (let view in views) {
+			views[view].style.display = "none";
+		}
+		loadView(view);
+	}
+
+	function loadView(view) {
+		views[view].style.display = "block";
+	}
+
+	async function remove(bibKey) {
+		try {
+			const content = await read(bibtexPath);
+			console.log("parsing content")
+			var references = BINParser.toJSON(content);
+			console.log("parsed content")
+
+			references = references.filter(function( obj ) {
+				return obj["citationKey"] !== bibKey;
+			});
+		} catch (error) {
+			console.error('File Not Found:', error);
+		}
+		console.log("unparsing content")
+		console.log(references)
+		const newContent = BINParser.toBibtex(references);
+		console.log("unparsed content")
+		await overwrite(newContent);
+		return;
+	}
+
+	async function update(bibKey, entry){
+
 	}
 
 
